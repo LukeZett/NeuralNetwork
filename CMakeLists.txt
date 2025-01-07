@@ -28,12 +28,21 @@ add_library(NeuralNetwork
 	"Components/ActivationFunctions/ReLU.h"
 	"Components/ActivationFunctions/LeakyReLU.h" "NetworkLayers/SoftMaxLayer/SoftMaxLayer.h" "NetworkLayers/SoftMaxLayer/SoftMaxLayerTrain.h" "Components/CostFunctions/CrossEntropy.h" "NetworkLayers/Conv2DLayer/Conv2DLayer.h" "NetworkLayers/Conv2DLayer/Conv2DLayerTrain.h" "NetworkLayers/Conv2DLayer/Conv2DLayer.cpp" "NetworkLayers/Conv2DLayer/Conv2DLayerTrain.cpp" "NetworkLayers/Maxpool2DLayer/MaxPool2DLayer.h" "NetworkLayers/Maxpool2DLayer/MaxPool2DLayer.cpp")
 
+add_subdirectory(VecAl)
 target_link_libraries(NeuralNetwork PUBLIC VecAl)
 
 target_include_directories(NeuralNetwork PUBLIC "NetworkLayers")
 target_include_directories(NeuralNetwork PUBLIC "Components")
 target_include_directories(NeuralNetwork PUBLIC "Network")
 target_include_directories(NeuralNetwork PUBLIC ".")
+
+add_executable(NNDemo
+	"main.cpp"
+	"Dataset/Dataset.cpp"
+	"Dataset/Dataset.h"
+)
+target_link_libraries(NNDemo PUBLIC NeuralNetwork)
+
 
 
 if (MSVC)

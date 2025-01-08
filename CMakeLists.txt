@@ -26,7 +26,17 @@ add_library(NeuralNetwork
 	"Network/NetworkBuilder.h" 
 	"Network/NetworkBuilder.cpp"
 	"Components/ActivationFunctions/ReLU.h"
-	"Components/ActivationFunctions/LeakyReLU.h" "NetworkLayers/SoftMaxLayer/SoftMaxLayer.h" "NetworkLayers/SoftMaxLayer/SoftMaxLayerTrain.h" "Components/CostFunctions/CrossEntropy.h" "NetworkLayers/Conv2DLayer/Conv2DLayer.h" "NetworkLayers/Conv2DLayer/Conv2DLayerTrain.h" "NetworkLayers/Conv2DLayer/Conv2DLayer.cpp" "NetworkLayers/Conv2DLayer/Conv2DLayerTrain.cpp" "NetworkLayers/Maxpool2DLayer/MaxPool2DLayer.h" "NetworkLayers/Maxpool2DLayer/MaxPool2DLayer.cpp")
+	"Components/ActivationFunctions/LeakyReLU.h"
+	"NetworkLayers/SoftMaxLayer/SoftMaxLayer.h" 
+	"NetworkLayers/SoftMaxLayer/SoftMaxLayerTrain.h" 
+	"Components/CostFunctions/CrossEntropy.h" 
+	"NetworkLayers/Conv2DLayer/Conv2DLayer.h" 
+	"NetworkLayers/Conv2DLayer/Conv2DLayerTrain.h" 
+	"NetworkLayers/Conv2DLayer/Conv2DLayer.cpp" 
+	"NetworkLayers/Conv2DLayer/Conv2DLayerTrain.cpp" 
+	"NetworkLayers/Maxpool2DLayer/MaxPool2DLayer.h" 
+	"NetworkLayers/Maxpool2DLayer/MaxPool2DLayer.cpp"
+)
 
 add_subdirectory(VecAl)
 target_link_libraries(NeuralNetwork PUBLIC VecAl)
@@ -55,12 +65,17 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   # using Visual Studio C++
 endif()
 
-
 if (MSVC)
 	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		
 	else()
 		target_compile_options(NeuralNetwork PRIVATE /O2 /Ob3 /fp:fast)
+		target_compile_options(NNDemo PRIVATE /O2 /Ob3 /fp:fast)
 	endif()
 
 endif()
+
+configure_file(data/fashion_mnist_train_labels.csv fashion_mnist_train_labels.csv COPYONLY)
+configure_file(data/fashion_mnist_train_vectors.csv fashion_mnist_train_vectors.csv COPYONLY)
+configure_file(data/fashion_mnist_test_labels.csv fashion_mnist_test_labels.csv COPYONLY)
+configure_file(data/fashion_mnist_test_vectors.csv fashion_mnist_test_vectors.csv COPYONLY)

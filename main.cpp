@@ -3,7 +3,6 @@
 #include "Network/NetworkBuilder.h"
 #include "Dataset/Dataset.h"
 #include <iostream>
-#include <fstream>
 
 int main()
 {
@@ -31,26 +30,22 @@ int main()
 	network.Learn(0.002, train_images_view, train_expected_view, 50, 20, 0.2);
 
 	Dataset test_vectors = Dataset(dataPath / "fashion_mnist_test_vectors.csv", 44);
+	Dataset test_labels = Dataset(dataPath / "fashion_mnist_test_labels.csv", 44);
 
 	auto test_images_view = test_vectors.AsMatrix();
 	test_images_view /= 255;
 
-	std::ofstream trainPred("../../../../train_predictions.csv");
-	std::ofstream testPred("../../../../test_predictions.csv");
+	uint32_t correct = 0;
 
 	for (size_t i = 0; i < test_images_view.Height(); i++)
 	{
 		auto vecView = VecAl::VectorView(test_images_view.Width(), test_images_view[i]);
-		testPred << NN::maxIndex(network.CalculateOutputs(vecView)) << std::endl;
+		if(NN::maxIndex(network.CalculateOutputs(vecView)) == test_labels[i][0])
+		{
+			correct++;
+		}
 	}
-	testPred.close();
 
-	for (size_t i = 0; i < train_images_view.Height(); i++)
-	{
-		auto vecView = VecAl::VectorView(train_images_view.Width(), train_images_view[i]);
-		trainPred << NN::maxIndex(network.CalculateOutputs(vecView)) << std::endl;
-	}
-	trainPred.close();
-
+	std::cout << "Test set accuraccy: " << correct / (float)test_images_view.Height() << std::endl;
 	return 0;
 }

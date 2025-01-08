@@ -34,3 +34,4 @@
 # Visual studio
 out
 .vs
+build

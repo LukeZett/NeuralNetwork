@@ -144,7 +144,7 @@ TEST(VecUnaryOperations, CompoundAbsSqrtWithRandomDist)
 
 	for (size_t i = 0; i < 120; i++)
 	{
-		float expected = std::sqrtf(std::abs(vec1[i]));
+		float expected = std::sqrt(std::abs(vec1[i]));
 		EXPECT_FLOAT_EQ(vec2[i], expected);
 	}
 }

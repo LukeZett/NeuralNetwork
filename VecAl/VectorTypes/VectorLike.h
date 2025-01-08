@@ -1,6 +1,8 @@
 #pragma once
 #include <iosfwd>
 #include <time.h>
+#include <cstring>
+#include <cmath>
 
 #define AVX256
 
@@ -95,7 +97,14 @@ namespace VecAl
 		
 		inline VectorLike& SubFrom(const ValueType value, VectorLike& dest) const { return BinaryOperation<MatOp::SubReversed>(value, dest); }
 		
-		inline VectorLike& Exponentiate(const ValueType value, VectorLike& dest) const { return BinaryOperation<MatOp::Exp>(value, dest); }
+		inline VectorLike& Exponentiate(const ValueType value, VectorLike& dest) const {
+			for (size_t i = 0; i < m_size; i++)
+			{
+				dest[i] = std::pow(value, m_ptr[i]);
+			}
+			return dest;
+		}
+
 
 		inline VectorLike& ReciprMul(const ValueType value, VectorLike& dest) const { return BinaryOperation<MatOp::DivReversed>(value, dest); }
 

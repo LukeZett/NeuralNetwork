@@ -56,16 +56,6 @@ namespace MatOp
 		return _mm256_div_ps(num2, num1);
 	}
 
-	inline vecf Pow(const vecf& num1, const vecf& num2)
-	{
-		return _mm256_pow_ps(num1, num2);
-	}
-
-	inline vecf Exp(const vecf& num1, const vecf& num2)
-	{
-		return _mm256_pow_ps(num2, num1);
-	}
-
 	inline vecf Max(const vecf& num1, const vecf& num2)
 	{
 		return _mm256_max_ps(num1, num2);

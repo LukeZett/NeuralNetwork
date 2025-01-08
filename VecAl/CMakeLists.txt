@@ -61,3 +61,16 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(BasicTests)
+
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # using Clang
+	set(CMAKE_CXX_FLAGS "-mavx -O3 -pthread")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # using GCC
+	set(CMAKE_CXX_FLAGS "-mavx -O3 -pthread")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+  # using Intel C++
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  # using Visual Studio C++
+endif()

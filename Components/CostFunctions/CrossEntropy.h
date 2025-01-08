@@ -10,7 +10,7 @@ namespace NN
 	public:
 		inline static float Cost(float x, float ex)
 		{
-			return -(std::logf(x) * ex);
+			return -(std::log(x) * ex);
 		}
 
 		inline static float CostDer(float x, float ex)
